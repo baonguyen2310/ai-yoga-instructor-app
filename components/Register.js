@@ -57,9 +57,9 @@ const Login = ({ navigation }) => {
         />
       </View>
       <View style={{ margin: 10 }}>
-        <Text>ESPCODE:</Text>
+        <Text>Chỉ số BMI:</Text>
         <TextInput
-          placeholder="ESPCODE"
+          placeholder="Cân nặng/(Chiều cao*2)"
           value={ESPCODE}
           onChangeText={(newText) => setESPCODE(newText)}
           style={{ backgroundColor: "#fff", height: 50, fontSize: 16 }}

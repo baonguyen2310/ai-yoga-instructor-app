@@ -20,7 +20,7 @@ import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { HOST } from "../App";
 
-import ExercisesList from './ExercisesList';
+import ExercisesList from "./ExercisesList";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -126,7 +126,7 @@ const Home = ({ route, navigation }) => {
     const newChecked1 = !checked1; //dùng biến tạm vì checked1 vẫn chưa chắc được set
     const data = {
       checked1: newChecked1,
-      alarm1: alarm1
+      alarm1: alarm1,
     };
     console.log(data);
     const accessToken = await AsyncStorage.getItem("accessToken");
@@ -213,7 +213,6 @@ const Home = ({ route, navigation }) => {
               }
             });
         }, offset1 * 60 * 1000 + 0 * 60 * 1000);
-        
       });
     return () => {
       clearTimeout(timer1IsTook);
@@ -241,31 +240,34 @@ const Home = ({ route, navigation }) => {
       >
         HUẤN LUYỆN VIÊN YOGA AI
       </Text>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.setParams({ day: "Mỗi ngày", color: "#F0A04B" });
+      <View
+        style={{
+          marginTop: 20,
+          marginBottom: 20,
+          marginRight: 20,
+          backgroundColor: "#000",
+          padding: 6,
+          flexDirection: "row",
+          justifyContent: "space-between",
         }}
       >
+        {route.params == undefined ? (
+          <Text style={{ fontSize: 24, fontStyle: "italic", color: "white" }}>
+            Mỗi ngày
+          </Text>
+        ) : (
+          <Text style={{ fontSize: 24, fontStyle: "italic", color: "white" }}>
+            {route.params.day}
+          </Text>
+        )}
         <View
-          style={{
-            marginTop: 20,
-            marginBottom: 20,
-            marginRight: 20,
-            backgroundColor: "#000",
-            padding: 6
-          }}
+          style={{ alignSelf: "flex-end" }}
         >
-          {route.params == undefined ? (
-            <Text style={{ fontSize: 24, fontStyle: "italic", color: "white" }}>
-              Mỗi ngày
-            </Text>
-          ) : (
-            <Text style={{ fontSize: 24, fontStyle: "italic", color: "white" }}>
-              {route.params.day}
-            </Text>
-          )}
+          <TouchableOpacity onPress={handleRefresh}>
+            <Ionicons name="refresh" size={35} color="white" />
+          </TouchableOpacity>
         </View>
-      </TouchableOpacity>
+      </View>
       {/* Morning */}
       <ExercisesList />
       <View
@@ -323,11 +325,6 @@ const Home = ({ route, navigation }) => {
             }}
           />
         </View>
-      </View>
-      <View style={{ position: "absolute", top: "95%", alignSelf: "flex-end" }}>
-        <TouchableOpacity onPress={handleRefresh}>
-          <Ionicons name="refresh" size={35} color="black" />
-        </TouchableOpacity>
       </View>
     </View>
   );
